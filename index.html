@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chikwafu Creatives — Kampala, Uganda</title>
+  <meta name="description" content="Photography, video, design and emerging digital experiences from Kampala, Uganda." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════════ */
+    :root {
+      --gold:        #E8A03D;
+      --gold-dim:    rgba(232,160,61,0.12);
+      --gold-border: rgba(232,160,61,0.20);
+      --green:       #3D7F5F;
+      --blue:        #5A9CC5;
+      --terra:       #E86B5F;
+      --earth:       #9A7260;
+
+      --bg:    #0A0A0B;
+      --card:  #111114;
+      --muted: #1C1C20;
+      --b:     rgba(255,255,255,0.07);
+
+      --fg:  #F2F0EC;
+      --fg2: #8A8A82;
+      --fg3: #484843;
+
+      --body:    'Manrope', -apple-system, sans-serif;
+      --display: 'Syne', sans-serif;
+
+      --r:    12px;
+      --rl:   20px;
+      --rxl:  28px;
+      --ease: cubic-bezier(0.22,1,0.36,1);
+    }
+
+    /* ═══════════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════════ */
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--bg); color:var(--fg);
+      font-family:var(--body); font-size:16px;
+      line-height:1.6; -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    img   { display:block; max-width:100%; }
+    a     { color:inherit; text-decoration:none; }
+    ul    { list-style:none; }
+    ::-webkit-scrollbar        { width:4px; }
+    ::-webkit-scrollbar-track  { background:var(--bg); }
+    ::-webkit-scrollbar-thumb  { background:var(--gold-border); border-radius:99px; }
+
+    /* ═══════════════════════════════════════════
+       KEYFRAMES — pure CSS, always fire
+    ═══════════════════════════════════════════ */
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes scaleIn  { from{opacity:0;transform:scale(0.94)}      to{opacity:1;transform:scale(1)}      }
+    @keyframes fadeIn   { from{opacity:0}                             to{opacity:1}                         }
+    @keyframes marquee  { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    @keyframes pulse    { 0%,100%{box-shadow:0 0 0 0 rgba(232,160,61,.5)} 50%{box-shadow:0 0 0 7px rgba(232,160,61,0)} }
+    @keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    @keyframes bounce   { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(5px)} }
+
+    .ani        { animation:fadeUp .7s var(--ease) both; }
+    .d1         { animation-delay:.10s; }
+    .d2         { animation-delay:.20s; }
+    .d3         { animation-delay:.30s; }
+    .d4         { animation-delay:.40s; }
+    .d5         { animation-delay:.50s; }
+    .ani-scale  { animation:scaleIn .85s var(--ease) both; }
+
+    /* ═══════════════════════════════════════════
+       LAYOUT HELPERS
+    ═══════════════════════════════════════════ */
+    .wrap { max-width:1180px; margin:0 auto; padding:0 24px; }
+    .sec  { padding:96px 0; }
+
+    .chip {
+      display:inline-flex; align-items:center; gap:7px;
+      font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--gold); padding:5px 13px; border-radius:99px;
+      background:var(--gold-dim); border:1px solid var(--gold-border);
+    }
+    .badge {
+      display:inline-block; font-size:10px; font-weight:700;
+      letter-spacing:.06em; text-transform:uppercase; color:var(--fg2);
+      padding:3px 9px; border-radius:99px;
+      background:var(--muted); border:1px solid var(--b);
+    }
+    .grad {
+      background:linear-gradient(130deg,var(--gold) 0%,#F5CC72 55%,var(--gold) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .hdr        { margin-bottom:52px; }
+    .hdr.center { text-align:center; display:flex; flex-direction:column; align-items:center; gap:14px; }
+    .hdr:not(.center) { display:flex; flex-direction:column; gap:14px; }
+    .h2 {
+      font-family:var(--display);
+      font-size:clamp(30px,4vw,52px);
+      font-weight:800; letter-spacing:-0.03em; line-height:1.05;
+    }
+    .sub { font-size:16px; color:var(--fg2); line-height:1.7; max-width:520px; }
+
+    /* ── Buttons ── */
+    .btn-g {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--gold); color:#0A0A0B;
+      font-size:14px; font-weight:700; font-family:var(--body);
+      padding:13px 26px; border-radius:99px; border:none; cursor:pointer;
+      transition:transform .25s var(--ease),box-shadow .25s;
+    }
+    .btn-g:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(232,160,61,.4); }
+    .btn-o {
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid var(--gold-border); color:var(--fg); font-size:14px; font-weight:600;
+      padding:13px 26px; border-radius:99px; background:var(--gold-dim);
+      transition:border-color .2s,background .2s,transform .2s;
+    }
+    .btn-o:hover { border-color:var(--gold); background:rgba(232,160,61,.18); transform:translateY(-1px); }
+
+    /* ═══════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════ */
+    #nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      transition:background .4s var(--ease),backdrop-filter .4s;
+    }
+    #nav.on {
+      background:rgba(10,10,11,.9);
+      backdrop-filter:blur(20px) saturate(160%);
+      border-bottom:1px solid var(--b);
+    }
+    .nav-in {
+      max-width:1180px; margin:0 auto; padding:0 24px;
+      height:66px; display:flex; align-items:center; justify-content:space-between;
+    }
+    .nav-logo {
+      display:flex; align-items:center; gap:9px;
+      font-family:var(--display); font-size:19px; font-weight:800; letter-spacing:-0.02em;
+    }
+    .dot { width:8px; height:8px; border-radius:50%; background:var(--gold); animation:pulse 2.2s ease-in-out infinite; }
+    .nav-links { display:flex; align-items:center; gap:2px; }
+    .nav-links a {
+      font-size:14px; font-weight:500; color:var(--fg2);
+      padding:7px 13px; border-radius:var(--r);
+      transition:color .2s,background .2s;
+    }
+    .nav-links a:hover { color:var(--fg); background:var(--muted); }
+    .nav-cta {
+      font-size:13px; font-weight:700; background:var(--gold); color:#0A0A0B;
+      padding:9px 20px; border-radius:99px;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .nav-cta:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(232,160,61,.35); }
+
+    /* ═══════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════ */
+    #hero {
+      min-height:100vh; display:flex; flex-direction:column;
+      justify-content:center; padding:130px 0 80px;
+      position:relative; overflow:hidden;
+    }
+    .h-glow1 {
+      position:absolute; top:-180px; left:-180px;
+      width:680px; height:680px; border-radius:50%; pointer-events:none;
+      background:radial-gradient(circle,rgba(232,160,61,.07) 0%,transparent 70%);
+    }
+    .h-glow2 {
+      position:absolute; bottom:-80px; right:-80px;
+      width:480px; height:480px; border-radius:50%; pointer-events:none;
+      background:radial-gradient(circle,rgba(61,127,95,.08) 0%,transparent 70%);
+    }
+    .h-dots {
+      position:absolute; inset:0; pointer-events:none;
+      background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);
+      background-size:32px 32px;
+      mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);
+    }
+    .h-inner {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:56px; align-items:center; position:relative; z-index:1;
+    }
+    .h-loc {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:12px; font-weight:600; color:var(--gold); margin-bottom:22px;
+      animation:fadeUp .7s var(--ease) .1s both;
+    }
+    .h-h1 {
+      font-family:var(--display);
+      font-size:clamp(38px,5.5vw,70px);
+      font-weight:800; line-height:1.0; letter-spacing:-0.03em; margin-bottom:20px;
+      animation:fadeUp .7s var(--ease) .2s both;
+    }
+    .h-h1 em { font-style:normal; color:var(--gold); }
+    .h-p {
+      font-size:17px; color:var(--fg2); line-height:1.7;
+      max-width:450px; margin-bottom:34px;
+      animation:fadeUp .7s var(--ease) .3s both;
+    }
+    .h-btns { display:flex; gap:12px; flex-wrap:wrap; animation:fadeUp .7s var(--ease) .4s both; }
+    /* Visual */
+    .h-vis { position:relative; animation:scaleIn .9s var(--ease) .35s both; }
+    .h-imgbox {
+      border-radius:var(--rxl); overflow:hidden; aspect-ratio:4/5;
+      background:var(--muted); border:1px solid var(--b);
+      box-shadow:0 40px 90px rgba(0,0,0,.55); position:relative;
+    }
+    .h-imgbox img { width:100%; height:100%; object-fit:cover; transition:transform 8s ease; }
+    .h-imgbox:hover img { transform:scale(1.04); }
+    .h-imgbox::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(160deg,transparent 50%,rgba(10,10,11,.65) 100%);
+    }
+    .hst {
+      position:absolute; z-index:2;
+      background:rgba(17,17,20,.9); backdrop-filter:blur(16px);
+      border:1px solid var(--gold-border); border-radius:var(--rl);
+      padding:14px 18px; animation:float 4s ease-in-out infinite;
+    }
+    .hst:nth-child(2) { animation-delay:-2s; }
+    .hst-1 { top:28px; right:-28px; }
+    .hst-2 { bottom:50px; left:-28px; }
+    .hst-n { font-family:var(--display); font-size:26px; font-weight:800; color:var(--gold); line-height:1; }
+    .hst-l { font-size:11px; font-weight:600; color:var(--fg2); margin-top:3px; white-space:nowrap; }
+    .scroll-cue {
+      position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--fg3);
+      animation:fadeUp .7s var(--ease) .9s both;
+    }
+    .arr { width:17px; height:17px; border-right:2px solid var(--fg3); border-bottom:2px solid var(--fg3); transform:rotate(45deg); animation:bounce 1.8s ease-in-out infinite; }
+
+    /* ═══════════════════════════════════════════
+       MARQUEE
+    ═══════════════════════════════════════════ */
+    .mq-wrap { overflow:hidden; padding:18px 0; background:var(--card); border-top:1px solid var(--b); border-bottom:1px solid var(--b); }
+    .mq-track { display:flex; width:max-content; animation:marquee 24s linear infinite; }
+    .mq-item { display:inline-flex; align-items:center; gap:20px; padding:0 36px; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--fg3); white-space:nowrap; }
+    .mq-item span { color:var(--gold); font-size:18px; }
+
+    /* ═══════════════════════════════════════════
+       BENTO WORK
+    ═══════════════════════════════════════════ */
+    #work { background:var(--bg); }
+    .bento { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .bc {
+      background:var(--card); border:1px solid var(--b);
+      border-radius:var(--rl); overflow:hidden; position:relative; cursor:pointer;
+      transition:transform .35s var(--ease),border-color .35s,box-shadow .35s;
+    }
+    .bc:hover { transform:translateY(-5px); border-color:var(--gold-border); box-shadow:0 20px 55px rgba(0,0,0,.4); }
+    .bc-1 { grid-column:span 2; grid-row:span 2; min-height:400px; }
+    .bc-2,.bc-3 { min-height:190px; }
+    .bc-4 { grid-column:span 2; min-height:150px; }
+    .bc img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
+    .bc:hover img { transform:scale(1.05); }
+    .bc-ov { position:absolute; inset:0; background:linear-gradient(160deg,rgba(10,10,11,.15) 0%,rgba(10,10,11,.82) 100%); }
+    .bc-cnt { position:absolute; bottom:0; left:0; right:0; padding:22px; }
+    .bc-ico { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-bottom:10px; font-size:17px; }
+    .bc-t { font-family:var(--display); font-size:19px; font-weight:700; color:var(--fg); letter-spacing:-0.02em; margin-bottom:5px; }
+    .bc-1 .bc-t { font-size:26px; margin-bottom:8px; }
+    .bc-d { font-size:13px; color:rgba(242,240,236,.7); line-height:1.5; }
+    .bc-2 .bc-d,.bc-3 .bc-d,.bc-4 .bc-d { display:none; }
+    .bc-lnk { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:var(--gold); margin-top:10px; }
+    .bc-4 .bc-cnt { display:flex; align-items:center; justify-content:space-between; padding:18px 22px; }
+    .bc-4 .bc-t  { margin:0; font-size:17px; }
+
+    /* ═══════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════ */
+    #about { background:var(--bg); }
+    .ab-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+    .ab-intro { font-size:17px; color:var(--fg2); line-height:1.75; margin-bottom:28px; }
+    .tl { display:flex; flex-direction:column; }
+    .tl-r { display:grid; grid-template-columns:76px 1fr; gap:18px; padding:22px 0; border-bottom:1px solid var(--b); }
+    .tl-r:last-child { border-bottom:none; }
+    .tl-y { font-family:var(--display); font-size:13px; font-weight:800; color:var(--gold); padding-top:2px; }
+    .tl-t { font-size:14px; font-weight:700; color:var(--fg); margin-bottom:3px; }
+    .tl-d { font-size:13px; color:var(--fg2); line-height:1.6; }
+    .sk-blk { display:flex; flex-direction:column; gap:28px; }
+    .grp-lbl { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--fg3); margin-bottom:12px; }
+    .sk-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+    .sk { display:flex; align-items:center; gap:9px; background:var(--card); border:1px solid var(--b); border-radius:var(--rl); padding:11px 13px; font-size:13px; font-weight:600; color:var(--fg2); transition:border-color .2s,color .2s; }
+    .sk:hover { border-color:var(--gold-border); color:var(--fg); }
+    .sk-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+    .tools-row { display:flex; flex-wrap:wrap; gap:7px; }
+    .tool { font-size:12px; font-weight:600; color:var(--fg2); padding:5px 13px; border-radius:99px; background:var(--muted); border:1px solid var(--b); transition:border-color .2s,color .2s; }
+    .tool:hover { border-color:var(--gold-border); color:var(--gold); }
+
+    /* ═══════════════════════════════════════════
+       SERVICES
+    ═══════════════════════════════════════════ */
+    #services { background:var(--card); }
+    .srv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .srv {
+      background:var(--bg); border:1px solid var(--b);
+      border-radius:var(--rl); padding:30px 26px; position:relative; overflow:hidden;
+      transition:transform .3s var(--ease),border-color .3s,box-shadow .3s;
+    }
+    .srv::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--sc,var(--gold)); opacity:0; transition:opacity .3s; }
+    .srv:hover { transform:translateY(-4px); border-color:var(--gold-border); box-shadow:0 14px 44px rgba(0,0,0,.34); }
+    .srv:hover::before { opacity:1; }
+    .srv-ico { width:46px; height:46px; border-radius:var(--r); display:flex; align-items:center; justify-content:center; font-size:21px; margin-bottom:16px; }
+    .srv-t { font-family:var(--display); font-size:17px; font-weight:700; color:var(--fg); margin-bottom:9px; letter-spacing:-0.02em; }
+    .srv-d { font-size:13px; color:var(--fg2); line-height:1.65; margin-bottom:16px; }
+    .srv-fl { display:flex; flex-direction:column; gap:6px; }
+    .srv-f  { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--fg2); }
+    .chk { width:15px; height:15px; border-radius:50%; background:var(--gold-dim); border:1px solid var(--gold-border); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--gold); font-size:8px; }
+
+    /* ═══════════════════════════════════════════
+       CASES
+    ═══════════════════════════════════════════ */
+    #cases { background:var(--bg); }
+    .cs { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; padding:60px 0; border-bottom:1px solid var(--b); }
+    .cs:last-child { border-bottom:none; }
+    .cs:nth-child(even) .cs-img  { order:2; }
+    .cs:nth-child(even) .cs-info { order:1; }
+    .cs-iw { border-radius:var(--rl); overflow:hidden; aspect-ratio:4/3; background:var(--muted); border:1px solid var(--b); }
+    .cs-iw img { width:100%; height:100%; object-fit:cover; transition:transform .5s var(--ease); }
+    .cs-iw:hover img { transform:scale(1.04); }
+    .cs-num  { font-family:var(--display); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+    .cs-h3   { font-family:var(--display); font-size:32px; font-weight:800; color:var(--fg); letter-spacing:-0.03em; line-height:1.1; margin-bottom:6px; }
+    .cs-sub  { font-size:14px; color:var(--fg2); margin-bottom:24px; }
+    .cs-blk  { background:var(--card); border:1px solid var(--b); border-radius:var(--r); padding:18px; margin-bottom:10px; }
+    .cs-lbl  { display:flex; align-items:center; gap:7px; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--fg3); margin-bottom:9px; }
+    .cs-lbl span { width:21px; height:21px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:11px; }
+    .cs-blk p { font-size:13px; color:var(--fg2); line-height:1.65; }
+    .mets { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+    .met  { text-align:center; padding:14px 8px; background:var(--muted); border-radius:8px; }
+    .met-v { font-family:var(--display); font-size:22px; font-weight:800; color:var(--gold); }
+    .met-l { font-size:11px; color:var(--fg3); margin-top:2px; }
+
+    /* ═══════════════════════════════════════════
+       MD QUOTE
+    ═══════════════════════════════════════════ */
+    #md-quote { background:var(--bg); position:relative; overflow:hidden; }
+    .md-glow {
+      position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse 55% 80% at 8%  50%, rgba(232,160,61,.06) 0%,transparent 70%),
+        radial-gradient(ellipse 45% 70% at 92% 50%, rgba(61,127,95,.05)  0%,transparent 70%);
+    }
+    .md-layout { display:grid; grid-template-columns:300px 1fr; gap:68px; align-items:center; position:relative; z-index:1; }
+    .md-pcol   { display:flex; flex-direction:column; align-items:center; gap:18px; }
+    .md-frame  {
+      width:230px; height:270px; border-radius:var(--rxl); overflow:hidden; position:relative;
+      border:1px solid var(--b); box-shadow:0 28px 70px rgba(0,0,0,.5); flex-shrink:0;
+    }
+    .md-frame img { width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
+    .md-frame:hover img { transform:scale(1.04); }
+    .md-frame::after {
+      content:''; position:absolute; inset:0; border-radius:inherit;
+      border:2px solid transparent;
+      background:linear-gradient(150deg,var(--gold) 0%,transparent 55%) border-box;
+      -webkit-mask:linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite:destination-out; mask-composite:exclude; pointer-events:none;
+    }
+    .md-id   { text-align:center; }
+    .md-nm   { font-family:var(--display); font-size:17px; font-weight:800; color:var(--fg); }
+    .md-rl   { font-size:11px; font-weight:700; color:var(--gold); letter-spacing:.07em; text-transform:uppercase; margin-top:3px; }
+    .md-co   { font-size:11px; color:var(--fg3); margin-top:2px; }
+    .md-sig  { display:flex; align-items:center; gap:10px; padding:7px 14px; border-radius:99px; background:var(--gold-dim); border:1px solid var(--gold-border); }
+    .sig-bar { width:36px; height:2px; background:var(--gold); border-radius:99px; }
+    .sig-txt { font-family:var(--display); font-size:13px; color:var(--gold); font-style:italic; }
+    .md-qcol { display:flex; flex-direction:column; gap:24px; }
+    .open-q  { font-family:var(--display); font-size:96px; line-height:.65; color:var(--gold); opacity:.16; user-select:none; margin-bottom:-6px; }
+    .md-pull {
+      font-family:var(--display); font-size:clamp(19px,2.3vw,28px);
+      font-weight:700; color:var(--fg); line-height:1.45; letter-spacing:-0.02em;
+    }
+    .md-pull em { font-style:normal; color:var(--gold); }
+    .md-div  { width:46px; height:2px; background:linear-gradient(90deg,var(--gold),transparent); border-radius:99px; }
+    .md-body { font-size:15px; color:var(--fg2); line-height:1.8; max-width:580px; border-left:2px solid var(--gold-border); padding-left:18px; }
+    .md-attr { font-size:14px; font-weight:700; color:var(--fg); padding-left:18px; border-left:2px solid var(--gold); }
+
+    /* ═══════════════════════════════════════════
+       TEAM
+    ═══════════════════════════════════════════ */
+    #team { background:var(--card); }
+    .team-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+    }
+
+    .tc {
+      background:var(--bg); border:1px solid var(--b);
+      border-radius:var(--rl); overflow:hidden; position:relative;
+      transition:transform .35s var(--ease),border-color .35s,box-shadow .35s;
+    }
+    .tc:hover { transform:translateY(-6px); border-color:var(--gold-border); box-shadow:0 18px 50px rgba(0,0,0,.38); }
+    .tc::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--tc-clr,var(--gold)); opacity:0; transition:opacity .3s; }
+    .tc:hover::before { opacity:1; }
+    .tc-img { width:100%; aspect-ratio:1/1; overflow:hidden; background:var(--muted); position:relative; }
+    .tc-img img { width:100%; height:100%; object-fit:cover; object-position:top; filter:grayscale(18%); transition:transform .55s var(--ease),filter .4s; }
+    .tc:hover .tc-img img { transform:scale(1.06); filter:grayscale(0%); }
+    .tc-img::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 60%,rgba(10,10,11,.6) 100%); }
+    .tc-body { padding:18px 16px 20px; }
+    .tc-nm   { font-family:var(--display); font-size:16px; font-weight:800; color:var(--fg); letter-spacing:-0.02em; margin-bottom:2px; }
+    .tc-rl   { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--tc-clr,var(--gold)); margin-bottom:3px; }
+    .tc-dl   { font-size:11px; color:var(--fg3); margin-bottom:8px; font-style:italic; }
+    .tc-bio  { font-size:12px; color:var(--fg2); line-height:1.6; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    .tc-lnks { display:flex; gap:7px; margin-top:12px; }
+    .tc-lnk  {
+      width:28px; height:28px; border-radius:7px;
+      background:var(--muted); border:1px solid var(--b);
+      display:flex; align-items:center; justify-content:center; font-size:12px;
+      transition:border-color .2s,background .2s;
+    }
+    .tc-lnk:hover { border-color:var(--gold-border); background:var(--gold-dim); }
+
+    .t-stats {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      margin-top:52px; border:1px solid var(--b); border-radius:var(--rl);
+      overflow:hidden; background:var(--bg);
+    }
+    .ts { padding:26px 20px; text-align:center; border-right:1px solid var(--b); }
+    .ts:last-child { border-right:none; }
+    .ts-n { font-family:var(--display); font-size:34px; font-weight:800; color:var(--gold); letter-spacing:-0.03em; line-height:1; }
+    .ts-l { font-size:12px; color:var(--fg2); margin-top:5px; line-height:1.4; }
+    .ts-s { font-size:10px; color:var(--fg3); display:block; }
+
+    /* ═══════════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════════ */
+    #contact { background:var(--bg); }
+    .ct-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:60px; align-items:start; }
+    .ct-intro { font-size:16px; color:var(--fg2); line-height:1.7; margin-bottom:32px; }
+    .ct-m { display:flex; align-items:center; gap:15px; padding:18px; border-radius:var(--r); background:var(--muted); border:1px solid var(--b); margin-bottom:10px; transition:border-color .2s; }
+    .ct-m:hover { border-color:var(--gold-border); }
+    .ct-ico { width:42px; height:42px; border-radius:var(--r); display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0; }
+    .ct-lbl { font-size:14px; font-weight:700; color:var(--fg); }
+    .ct-val { font-size:13px; color:var(--gold); }
+    .soc-row { display:flex; flex-wrap:wrap; gap:7px; margin-top:24px; }
+    .spill { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; color:var(--fg2); padding:7px 14px; border-radius:99px; border:1px solid var(--b); background:var(--muted); transition:border-color .2s,color .2s; }
+    .spill:hover { border-color:var(--gold-border); color:var(--gold); }
+    .form { display:flex; flex-direction:column; gap:14px; }
+    .fg   { display:flex; flex-direction:column; gap:7px; }
+    .fl   { font-size:11px; font-weight:700; color:var(--fg2); letter-spacing:.04em; }
+    .fi,.ft { background:var(--card); border:1px solid var(--b); border-radius:var(--r); padding:13px 15px; color:var(--fg); font-family:var(--body); font-size:14px; transition:border-color .2s,box-shadow .2s; outline:none; width:100%; }
+    .fi::placeholder,.ft::placeholder { color:var(--fg3); }
+    .fi:focus,.ft:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(232,160,61,.12); }
+    .ft { resize:vertical; min-height:120px; }
+    .fsub { display:inline-flex; align-items:center; justify-content:center; gap:8px; background:var(--gold); color:#0A0A0B; font-size:14px; font-weight:700; font-family:var(--body); padding:14px 32px; border-radius:99px; border:none; cursor:pointer; align-self:flex-start; transition:transform .25s var(--ease),box-shadow .25s; }
+    .fsub:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(232,160,61,.4); }
+    .fok { font-size:14px; color:var(--green); padding:10px 0; display:none; }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
+    footer { background:var(--bg); border-top:1px solid var(--b); padding:56px 0 28px; }
+    .ft-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:44px; margin-bottom:44px; }
+    .ft-nm   { font-family:var(--display); font-size:20px; font-weight:800; letter-spacing:-0.02em; margin-bottom:10px; }
+    .ft-desc { font-size:13px; color:var(--fg2); line-height:1.7; margin-bottom:18px; }
+    .ft-cv   { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--gold); padding:8px 16px; border-radius:99px; border:1px solid var(--gold-border); background:var(--gold-dim); transition:background .2s; }
+    .ft-cv:hover { background:rgba(232,160,61,.18); }
+    .ft-col-t { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--fg3); margin-bottom:14px; }
+    .ft-lnks { display:flex; flex-direction:column; gap:9px; }
+    .ft-lnks a { font-size:13px; color:var(--fg2); transition:color .2s; }
+    .ft-lnks a:hover { color:var(--gold); }
+    .ft-bot  { display:flex; align-items:center; justify-content:space-between; padding-top:20px; border-top:1px solid var(--b); }
+    .ft-copy { font-size:12px; color:var(--fg3); }
+    .ft-soc  { display:flex; gap:12px; }
+    .ft-soc a { font-size:12px; color:var(--fg2); transition:color .2s; }
+    .ft-soc a:hover { color:var(--gold); }
+    .ft-tag  { text-align:center; font-family:var(--display); font-size:13px; color:var(--fg3); padding-top:18px; letter-spacing:.03em; }
+    .ft-tag span { color:var(--gold); }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width:1024px) {
+      .h-inner  { grid-template-columns:1fr; max-width:580px; }
+      .h-vis    { display:none; }
+      .bento    { grid-template-columns:1fr 1fr; }
+      .bc-1     { grid-column:span 2; }
+      .bc-4     { grid-column:span 2; }
+      .ab-grid  { grid-template-columns:1fr; }
+      .srv-grid { grid-template-columns:1fr 1fr; }
+      .cs       { grid-template-columns:1fr; }
+      .cs:nth-child(even) .cs-img  { order:1; }
+      .cs:nth-child(even) .cs-info { order:2; }
+      .md-layout { grid-template-columns:1fr; max-width:580px; margin:0 auto; }
+      .md-pcol { flex-direction:row; align-items:flex-start; gap:22px; justify-content:flex-start; }
+      .md-frame { width:110px; height:130px; }
+      .md-id   { text-align:left; }
+      .team-grid { grid-template-columns:1fr 1fr; }
+      .team-grid .tc:nth-child(4) { grid-column:auto; }
+      .team-grid .tc:nth-child(5) { grid-column:auto; }
+      .t-stats  { grid-template-columns:1fr 1fr; }
+      .ts:nth-child(2) { border-right:none; }
+      .ts:nth-child(3) { border-top:1px solid var(--b); }
+      .ts:nth-child(4) { border-top:1px solid var(--b); border-right:none; }
+      .ct-grid  { grid-template-columns:1fr; }
+      .ft-grid  { grid-template-columns:1fr 1fr; gap:28px; }
+    }
+    @media (max-width:640px) {
+      .nav-links { display:none; }
+      .sec { padding:68px 0; }
+      .bento { grid-template-columns:1fr; }
+      .bc-1,.bc-4 { grid-column:span 1; }
+      .srv-grid { grid-template-columns:1fr; }
+      .sk-grid  { grid-template-columns:1fr; }
+      .mets     { grid-template-columns:1fr 1fr; }
+      .md-pcol  { flex-direction:column; align-items:center; }
+      .md-frame { width:180px; height:210px; }
+      .md-id    { text-align:center; }
+      .team-grid { grid-template-columns:1fr; }
+      .t-stats  { grid-template-columns:1fr 1fr; }
+      .ft-grid  { grid-template-columns:1fr; }
+      .ft-bot   { flex-direction:column; gap:12px; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- ▓▓ NAV ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#hero" class="nav-logo"><div class="dot"></div>Chikwafu</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#md-quote">MD</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-cta">Start a Project</a>
+  </div>
+</nav>
+
+
+<!-- ▓▓ HERO ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<section id="hero">
+  <div class="h-glow1"></div><div class="h-glow2"></div><div class="h-dots"></div>
+  <div class="wrap">
+    <div class="h-inner">
+
+      <div>
+        <div class="h-loc">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Kampala, Uganda
+        </div>
+        <h1 class="h-h1">Crafting Visual Magic.<br>Elevating Stories.<br><em>Pushing Boundaries.</em></h1>
+        <p class="h-p">Photography, video, design, and emerging digital experiences — we create clarity in a noisy world and elevate brands that connect authentically with audiences.</p>
+        <div class="h-btns">
+          <a href="#cases" class="btn-g">View Our Work <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          <a href="#contact" class="btn-o">Start a Project</a>
+        </div>
+      </div>
+
+      <div class="h-vis">
+        <div class="h-imgbox">
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80" alt="Chikwafu Creatives team at work" loading="eager" />
+        </div>
+        <div class="hst hst-1"><div class="hst-n">50+</div><div class="hst-l">Projects Shipped</div></div>
+        <div class="hst hst-2"><div class="hst-n">98%</div><div class="hst-l">Client Satisfaction</div></div>
+      </div>
+
+    </div>
+  </div>
+  <a href="#cases" class="scroll-cue" aria-label="Scroll down"><div class="arr"></div></a>
+</section>
+
+
+<!-- ▓▓ MARQUEE ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<div class="mq-wrap" aria-hidden="true">
+  <div class="mq-track">
+    <span class="mq-item"><span>✦</span>Photography</span><span class="mq-item"><span>✦</span>Video Production</span><span class="mq-item"><span>✦</span>UI/UX Design</span><span class="mq-item"><span>✦</span>Brand Identity</span><span class="mq-item"><span>✦</span>Digital Experiences</span><span class="mq-item"><span>✦</span>East Africa</span><span class="mq-item"><span>✦</span>Kampala</span><span class="mq-item"><span>✦</span>Mobile-First</span>
+    <span class="mq-item"><span>✦</span>Photography</span><span class="mq-item"><span>✦</span>Video Production</span><span class="mq-item"><span>✦</span>UI/UX Design</span><span class="mq-item"><span>✦</span>Brand Identity</span><span class="mq-item"><span>✦</span>Digital Experiences</span><span class="mq-item"><span>✦</span>East Africa</span><span class="mq-item"><span>✦</span>Kampala</span><span class="mq-item"><span>✦</span>Mobile-First</span>
+  </div>
+</div>
+
+
+
+
+
+<!-- ▓▓ ABOUT ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<section id="about" class="sec">
+  <div class="wrap">
+    <div class="hdr ani">
+      <span class="chip">Our Story</span>
+      <h2 class="h2">Built in Kampala,<br>designed for everyone</h2>
+    </div>
+    <div class="ab-grid">
+      <div class="ani d1">
+        <p class="ab-intro">We started Chikwafu Creatives because exceptional design should not be a luxury — it should be a tool for real change. We create clarity in a noisy world through powerful photography, video, design and digital experiences.</p>
+        <div class="tl">
+          <div class="tl-r"><div class="tl-y">2020</div><div><div class="tl-t">Founded in Kampala</div><div class="tl-d">Two-person studio focused on brand identity and digital design for Ugandan startups.</div></div></div>
+          <div class="tl-r"><div class="tl-y">2021</div><div><div class="tl-t">First International Client</div><div class="tl-d">Expanded to serve a UK-based NGO building low-data digital tools for East Africa.</div></div></div>
+          <div class="tl-r"><div class="tl-y">2022</div><div><div class="tl-t">Photography &amp; Video Division</div><div class="tl-d">Launched full-service production — brand films, editorial photography, and content campaigns.</div></div></div>
+          <div class="tl-r"><div class="tl-y">2024</div><div><div class="tl-t">Multidisciplinary Team</div><div class="tl-d">Grew with developers, legal, HR and marketing leads to serve clients end-to-end.</div></div></div>
+          <div class="tl-r"><div class="tl-y">2026</div><div><div class="tl-t">50+ Projects &amp; Counting</div><div class="tl-d">Working with clients across Africa, Europe, and North America.</div></div></div>
+        </div>
+      </div>
+      <div class="sk-blk ani d2">
+        <div>
+          <div class="grp-lbl">Core Competencies</div>
+          <div class="sk-grid">
+            <div class="sk"><div class="sk-dot"></div>Photography</div>
+            <div class="sk"><div class="sk-dot"></div>Video Production</div>
+            <div class="sk"><div class="sk-dot"></div>Brand Identity</div>
+            <div class="sk"><div class="sk-dot"></div>UI/UX Design</div>
+            <div class="sk"><div class="sk-dot"></div>Design Systems</div>
+            <div class="sk"><div class="sk-dot"></div>User Research</div>
+            <div class="sk"><div class="sk-dot"></div>Digital Marketing</div>
+            <div class="sk"><div class="sk-dot"></div>Emerging Tech</div>
+          </div>
+        </div>
+        <div>
+          <div class="grp-lbl">Tools We Use</div>
+          <div class="tools-row">
+            <span class="tool">Figma</span><span class="tool">Adobe Suite</span><span class="tool">Premiere Pro</span><span class="tool">Framer</span><span class="tool">React</span><span class="tool">Tailwind CSS</span><span class="tool">Notion</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ▓▓ SERVICES ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<section id="services" class="sec">
+  <div class="wrap">
+    <div class="hdr center ani">
+      <span class="chip">What We Do</span>
+      <h2 class="h2">Services built for<br><span class="grad">real impact</span></h2>
+      <p class="sub">Global creative standards. Deep local knowledge. Work that genuinely connects.</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv ani"    style="--sc:var(--blue)"><div class="srv-ico" style="background:rgba(90,156,197,.15)">📷</div><div class="srv-t">Photography</div><p class="srv-d">Editorial, commercial, and brand photography that tells authentic stories with world-class craft.</p><ul class="srv-fl"><li class="srv-f"><div class="chk">✓</div>Brand &amp; product shoots</li><li class="srv-f"><div class="chk">✓</div>Editorial &amp; documentary</li><li class="srv-f"><div class="chk">✓</div>Event coverage</li><li class="srv-f"><div class="chk">✓</div>Post-production &amp; retouching</li></ul></div>
+      <div class="srv ani d1" style="--sc:var(--terra)"><div class="srv-ico" style="background:rgba(232,107,95,.15)">🎬</div><div class="srv-t">Video Production</div><p class="srv-d">Brand films, social content, and documentary-style video that moves audiences and elevates perception.</p><ul class="srv-fl"><li class="srv-f"><div class="chk">✓</div>Brand &amp; campaign films</li><li class="srv-f"><div class="chk">✓</div>Social media content</li><li class="srv-f"><div class="chk">✓</div>Motion graphics</li><li class="srv-f"><div class="chk">✓</div>Colour grading &amp; edit</li></ul></div>
+      <div class="srv ani d2" style="--sc:var(--gold)"><div class="srv-ico" style="background:rgba(232,160,61,.15)">🎨</div><div class="srv-t">Brand Identity &amp; Design</div><p class="srv-d">Logos, visual systems, and brand guidelines that feel culturally rooted and globally competitive.</p><ul class="srv-fl"><li class="srv-f"><div class="chk">✓</div>Logo + icon systems</li><li class="srv-f"><div class="chk">✓</div>Brand guidelines</li><li class="srv-f"><div class="chk">✓</div>Marketing collateral</li><li class="srv-f"><div class="chk">✓</div>Print &amp; digital assets</li></ul></div>
+      <div class="srv ani d3" style="--sc:var(--green)"><div class="srv-ico" style="background:rgba(61,127,95,.15)">📱</div><div class="srv-t">UI/UX Design</div><p class="srv-d">Mobile-first interfaces designed for the realities of East African users — fast, accessible, beautiful.</p><ul class="srv-fl"><li class="srv-f"><div class="chk">✓</div>User research &amp; testing</li><li class="srv-f"><div class="chk">✓</div>Wireframes &amp; prototypes</li><li class="srv-f"><div class="chk">✓</div>Design systems</li><li class="srv-f"><div class="chk">✓</div>WCAG 2.2 AA compliance</li></ul></div>
+      <div class="srv ani d4" style="--sc:var(--earth)"><div class="srv-ico" style="background:rgba(154,114,96,.18)">💻</div><div class="srv-t">Digital Development</div><p class="srv-d">Full-stack development that brings designs to life — fast, scalable, and built to last.</p><ul class="srv-fl"><li class="srv-f"><div class="chk">✓</div>Web &amp; mobile apps</li><li class="srv-f"><div class="chk">✓</div>E-commerce platforms</li><li class="srv-f"><div class="chk">✓</div>CMS integration</li><li class="srv-f"><div class="chk">✓</div>Performance optimisation</li></ul></div>
+      <div class="srv ani d5" style="--sc:var(--blue)"><div class="srv-ico" style="background:rgba(90,156,197,.12)">📣</div><div class="srv-t">Creative Marketing</div><p class="srv-d">Campaigns and content strategies that connect brands with audiences authentically and memorably.</p><ul class="srv-fl"><li class="srv-f"><div class="chk">✓</div>Campaign strategy</li><li class="srv-f"><div class="chk">✓</div>Social media management</li><li class="srv-f"><div class="chk">✓</div>Content creation</li><li class="srv-f"><div class="chk">✓</div>Analytics &amp; reporting</li></ul></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ▓▓ CASES ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<section id="cases" class="sec">
+  <div class="wrap">
+    <div class="hdr ani">
+      <span class="chip">Case Studies</span>
+      <h2 class="h2">The thinking<br>behind the work</h2>
+    </div>
+
+    <div class="cs ani d1">
+      <div class="cs-img"><div class="cs-iw"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80" alt="Tickets2go" loading="lazy"/></div></div>
+      <div class="cs-info">
+        <div class="cs-num">Case Study 01</div>
+        <h3 class="cs-h3">Tickets2go</h3>
+        <p class="cs-sub">End-to-end ticketing platform for East African events</p>
+        <div class="cs-blk"><div class="cs-lbl"><span style="background:rgba(232,107,95,.2)">🎯</span>The Challenge</div><p>Event organisers across Uganda were losing revenue to manual ticketing — cash handling, counterfeit tickets, and zero data on attendees. They needed a seamless digital solution built for local realities.</p></div>
+        <div class="cs-blk"><div class="cs-lbl"><span style="background:rgba(90,156,197,.2)">👥</span>Our Process</div><p>We partnered with Seth Ochieng (MD, Tickets2go) to design and build the full platform — from event creation dashboards for organisers to mobile-first ticket purchase flows optimised for low-bandwidth connections.</p></div>
+        <div class="cs-blk"><div class="cs-lbl"><span style="background:rgba(61,127,95,.2)">📈</span>Impact</div><div class="mets"><div class="met"><div class="met-v">10K+</div><div class="met-l">Tickets sold</div></div><div class="met"><div class="met-v">0</div><div class="met-l">Counterfeit tickets</div></div><div class="met"><div class="met-v">4.8★</div><div class="met-l">App rating</div></div></div></div>
+      </div>
+    </div>
+
+    <div class="cs ani d1">
+      <div class="cs-img"><div class="cs-iw"><img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=900&q=80" alt="FarmConnect" loading="lazy"/></div></div>
+      <div class="cs-info">
+        <div class="cs-num">Case Study 02</div>
+        <h3 class="cs-h3">FarmConnect</h3>
+        <p class="cs-sub">USSD + app hybrid for smallholder farmers</p>
+        <div class="cs-blk"><div class="cs-lbl"><span style="background:rgba(232,107,95,.2)">🎯</span>The Challenge</div><p>80% of target farmers used feature phones. A smartphone-only app would exclude most users. We needed one experience across USSD and Android.</p></div>
+        <div class="cs-blk"><div class="cs-lbl"><span style="background:rgba(90,156,197,.2)">👥</span>Our Process</div><p>Field research in Masaka and Jinja. We mapped USSD interaction trees, then designed an Android companion app sharing the same mental model — farmers could switch without relearning.</p></div>
+        <div class="cs-blk"><div class="cs-lbl"><span style="background:rgba(61,127,95,.2)">📈</span>Impact</div><div class="mets"><div class="met"><div class="met-v">12K</div><div class="met-l">Active farmers</div></div><div class="met"><div class="met-v">3×</div><div class="met-l">Market access</div></div><div class="met"><div class="met-v">92%</div><div class="met-l">Feature phone rate</div></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ▓▓ MD QUOTE ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<section id="md-quote" class="sec">
+  <div class="md-glow"></div>
+  <div class="wrap">
+    <div class="md-layout">
+
+      <div class="md-pcol ani">
+        <div class="md-frame">
+          <img src="IMG_1848.jpeg" alt="Ronald James, Managing Director" loading="lazy"/>
+        </div>
+        <div class="md-id">
+          <div class="md-nm">Ronald James</div>
+          <div class="md-rl">Managing Director</div>
+          <div class="md-co">Chikwafu Creatives · Kampala, Uganda</div>
+        </div>
+        <div class="md-sig"><div class="sig-bar"></div><div class="sig-txt">Ronald James</div></div>
+      </div>
+
+      <div class="md-qcol ani d2">
+        <div class="open-q">"</div>
+        <p class="md-pull">
+          In a world full of noise,<br>
+          we create <em>clarity through</em><br>
+          powerful visuals.
+        </p>
+        <div class="md-div"></div>
+        <p class="md-body">Chikwafu Creatives is committed to delivering exceptional photography, video, design, and emerging digital experiences that elevate brands and connect authentically with audiences.</p>
+        <p class="md-attr">— Ronald James, Managing Director</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ▓▓ TEAM ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<section id="team" class="sec">
+  <div class="wrap">
+    <div class="hdr ani">
+      <span class="chip">Our People</span>
+      <h2 class="h2">The team behind<br><span class="grad">the craft</span></h2>
+      <p class="sub">Creative leaders, builders, and strategists — many wearing multiple hats across the industry.</p>
+    </div>
+
+    <div class="team-grid">
+
+      <div class="tc ani" style="--tc-clr:var(--gold)">
+        <div class="tc-img"><img src="IMG_1848.jpeg" alt="Ronald James" loading="lazy"/></div>
+        <div class="tc-body">
+          <div class="tc-nm">Ronald James</div>
+          <div class="tc-rl" style="color:var(--gold)">Managing Director</div>
+          <p class="tc-bio">Visionary creative leader driving Chikwafu's mission to deliver exceptional photography, video, design, and digital experiences that elevate brands worldwide.</p>
+          <div class="tc-lnks"><a href="#" class="tc-lnk" aria-label="LinkedIn">🔗</a><a href="#" class="tc-lnk" aria-label="Twitter">𝕏</a></div>
+        </div>
+      </div>
+
+      <div class="tc ani d1" style="--tc-clr:var(--blue)">
+        <div class="tc-img"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80" alt="Seth Ochieng" loading="lazy"/></div>
+        <div class="tc-body">
+          <div class="tc-nm">Seth Ochieng</div>
+          <div class="tc-rl" style="color:var(--blue)">Full Stack Developer</div>
+          <div class="tc-dl">MD, Tickets2go</div>
+          <p class="tc-bio">Builds the digital backbone of every Chikwafu project. Brings deep product and platform expertise as Managing Director of Tickets2go.</p>
+          <div class="tc-lnks"><a href="#" class="tc-lnk" aria-label="LinkedIn">🔗</a><a href="#" class="tc-lnk" aria-label="GitHub">⌨️</a><a href="#" class="tc-lnk" aria-label="Twitter">𝕏</a></div>
+        </div>
+      </div>
+
+      <div class="tc ani d2" style="--tc-clr:var(--green)">
+        <div class="tc-img"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" alt="Mary Yogi" loading="lazy"/></div>
+        <div class="tc-body">
+          <div class="tc-nm">Mary Yogi</div>
+          <div class="tc-rl" style="color:var(--green)">Human Resource Manager</div>
+          <p class="tc-bio">Keeps the Chikwafu culture strong and the team thriving. Leads talent acquisition, wellbeing, and people processes that let great creative work happen.</p>
+          <div class="tc-lnks"><a href="#" class="tc-lnk" aria-label="LinkedIn">🔗</a><a href="#" class="tc-lnk" aria-label="Twitter">𝕏</a></div>
+        </div>
+      </div>
+
+      <div class="tc ani d3" style="--tc-clr:var(--terra)">
+        <div class="tc-img"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80" alt="Hakeem Kavuma" loading="lazy"/></div>
+        <div class="tc-body">
+          <div class="tc-nm">Hakeem Kavuma</div>
+          <div class="tc-rl" style="color:var(--terra)">Head of Legal</div>
+          <div class="tc-dl">CEO, Juri Geek</div>
+          <p class="tc-bio">Oversees all legal and contractual matters. CEO of Juri Geek, bringing sharp commercial and technology law expertise to every client engagement.</p>
+          <div class="tc-lnks"><a href="#" class="tc-lnk" aria-label="LinkedIn">🔗</a><a href="#" class="tc-lnk" aria-label="Twitter">𝕏</a></div>
+        </div>
+      </div>
+
+      <div class="tc ani d4" style="--tc-clr:var(--earth)">
+        <div class="tc-img"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80" alt="Jamal Entrecxi" loading="lazy"/></div>
+        <div class="tc-body">
+          <div class="tc-nm">Jamal Entrecxi</div>
+          <div class="tc-rl" style="color:var(--earth)">Creative Marketing</div>
+          <p class="tc-bio">Shapes campaigns, brand narratives, and digital content strategies that make Chikwafu's work impossible to ignore. The bridge between creative output and the world.</p>
+          <div class="tc-lnks"><a href="#" class="tc-lnk" aria-label="LinkedIn">🔗</a><a href="#" class="tc-lnk" aria-label="Behance">🎨</a><a href="#" class="tc-lnk" aria-label="Twitter">𝕏</a></div>
+        </div>
+      </div>
+
+      <div class="tc ani d5" style="--tc-clr:var(--terra)">
+        <div class="tc-img"><img src="https://images.unsplash.com/photo-1534308143439-3820e3e8e866?w=600&q=80" alt="Lokure Manfred" loading="lazy"/></div>
+        <div class="tc-body">
+          <div class="tc-nm">Lokure Manfred</div>
+          <div class="tc-rl" style="color:var(--terra)">Head of Animations &amp; Video Editing</div>
+          <p class="tc-bio">Brings stories to life through motion — from kinetic brand animations to polished video edits. Lokure's work gives every project its final, unforgettable edge.</p>
+          <div class="tc-lnks"><a href="#" class="tc-lnk" aria-label="LinkedIn">🔗</a><a href="#" class="tc-lnk" aria-label="Behance">🎨</a><a href="#" class="tc-lnk" aria-label="Twitter">𝕏</a></div>
+        </div>
+      </div>
+
+    </div><!-- /team-grid -->
+
+    <div class="t-stats ani">
+      <div class="ts"><div class="ts-n">6</div><div class="ts-l">Core Team<br>Members</div></div>
+      <div class="ts"><div class="ts-n">4</div><div class="ts-l">Disciplines<br>Covered</div></div>
+      <div class="ts"><div class="ts-n">2</div><div class="ts-l">Sister Companies<br><span class="ts-s">Tickets2go · Juri Geek</span></div></div>
+      <div class="ts"><div class="ts-n">50+</div><div class="ts-l">Projects<br>Shipped</div></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ▓▓ CONTACT ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<section id="contact" class="sec">
+  <div class="wrap">
+    <div class="hdr center ani">
+      <span class="chip">Let's Work Together</span>
+      <h2 class="h2">Got a project in mind?<br><span class="grad">Let's talk.</span></h2>
+      <p class="sub">We take on a select number of new projects each quarter. Tell us what you're building.</p>
+    </div>
+    <div class="ct-grid">
+      <div class="ani d1">
+        <p class="ct-intro">Whether you're a Kampala startup, a Nairobi brand, or a European company building for African markets — we'd love to hear from you.</p>
+        <a href="mailto:kikwafucreatives@gmail.com" class="ct-m" style="text-decoration:none">
+          <div class="ct-ico" style="background:rgba(90,156,197,.15)">✉️</div>
+          <div><div class="ct-lbl">Email Us</div><div class="ct-val">kikwafucreatives@gmail.com</div></div>
+        </a>
+        <a href="https://wa.me/256780844098" class="ct-m" style="text-decoration:none" target="_blank" rel="noopener noreferrer">
+          <div class="ct-ico" style="background:rgba(61,127,95,.15)">💬</div>
+          <div><div class="ct-lbl">WhatsApp</div><div class="ct-val">+256 780 844 098</div></div>
+        </a>
+        <div class="soc-row">
+          <a href="#" class="spill">🔗 LinkedIn</a>
+          <a href="#" class="spill">🎨 Behance</a>
+          <a href="#" class="spill">🏀 Dribbble</a>
+          <a href="#" class="spill">𝕏 Twitter</a>
+        </div>
+      </div>
+      <div class="ani d2">
+        <form class="form" onsubmit="handleSubmit(event)" novalidate>
+          <div class="fg"><label class="fl" for="nm">Your Name</label><input class="fi" id="nm" type="text" placeholder="Amara Osei" required/></div>
+          <div class="fg"><label class="fl" for="em">Email Address</label><input class="fi" id="em" type="email" placeholder="amara@company.com" required/></div>
+          <div class="fg"><label class="fl" for="mg">Tell us about your project</label><textarea class="ft" id="mg" placeholder="We're building a brand campaign for our Kampala launch..." required></textarea></div>
+          <button type="submit" class="fsub" id="fsub"><span id="fsub-t">Send Message</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+          <div class="fok" id="fok">✓ Message sent! We'll get back to you within 24 hours.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ▓▓ FOOTER ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<footer>
+  <div class="wrap">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-nm">Chikwafu Creatives</div>
+        <p class="ft-desc">A creative studio from Kampala, Uganda. Exceptional photography, video, design and digital experiences that elevate brands and connect authentically with audiences.</p>
+        <a href="#" class="ft-cv" download>↓ Download Agency Deck</a>
+      </div>
+      <div>
+        <div class="ft-col-t">Navigation</div>
+        <ul class="ft-lnks">
+          <li><a href="#work">Our Work</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#md-quote">From the MD</a></li>
+          <li><a href="#team">Our Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-t">Expertise</div>
+        <ul class="ft-lnks">
+          <li><a href="#">Photography</a></li>
+          <li><a href="#">Video Production</a></li>
+          <li><a href="#">Brand Identity</a></li>
+          <li><a href="#">UI/UX Design</a></li>
+          <li><a href="#">Development</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-t">Network</div>
+        <ul class="ft-lnks">
+          <li><a href="#">Tickets2go</a></li>
+          <li><a href="#">Juri Geek</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Behance</a></li>
+          <li><a href="#">Dribbble</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p class="ft-copy">© <span id="yr"></span> Chikwafu Creatives. Kampala, Uganda.</p>
+      <div class="ft-soc"><a href="#">LinkedIn</a><a href="#">Behance</a><a href="#">Dribbble</a></div>
+    </div>
+    <p class="ft-tag"><span>Global quality</span>, East African soul. 🇺🇬</p>
+  </div>
+</footer>
+
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function() {
+    nav.classList.toggle('on', window.scrollY > 40);
+  }, { passive: true });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    var btn = document.getElementById('fsub');
+    var txt = document.getElementById('fsub-t');
+    var ok  = document.getElementById('fok');
+    btn.disabled = true;
+    txt.textContent = 'Sending…';
+    setTimeout(function() {
+      btn.style.display = 'none';
+      ok.style.display  = 'block';
+      e.target.reset();
+      setTimeout(function() {
+        btn.style.display = 'inline-flex';
+        btn.disabled = false;
+        txt.textContent = 'Send Message';
+        ok.style.display = 'none';
+      }, 4000);
+    }, 1400);
+  }
+</script>
+
+</body>
+</html>

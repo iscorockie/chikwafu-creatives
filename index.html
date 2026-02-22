@@ -126,6 +126,60 @@
     }
     .btn-o:hover { border-color:var(--gold); background:rgba(232,160,61,.18); transform:translateY(-1px); }
 
+
+    /* ═══════════════════════════════════════════
+       LIGHT THEME
+    ═══════════════════════════════════════════ */
+    body.light {
+      --bg:    #F5F3EF;
+      --card:  #FFFFFF;
+      --muted: #ECEAE5;
+      --b:     rgba(0,0,0,0.08);
+
+      --fg:  #1A1A1B;
+      --fg2: #5A5A54;
+      --fg3: #9A9A94;
+
+      --gold-dim:    rgba(232,160,61,0.14);
+      --gold-border: rgba(232,160,61,0.30);
+    }
+    body.light #nav.on {
+      background: rgba(245,243,239,.92);
+    }
+    body.light .h-dots {
+      background-image: radial-gradient(circle,rgba(0,0,0,.06) 1px,transparent 1px);
+    }
+    body.light .bc-ov {
+      background: linear-gradient(160deg,rgba(245,243,239,.05) 0%,rgba(245,243,239,.80) 100%);
+    }
+    body.light .bc-d, body.light .bc-t { color: var(--fg); }
+    body.light .h-imgbox::after {
+      background: linear-gradient(160deg,transparent 50%,rgba(245,243,239,.65) 100%);
+    }
+    body.light .tc-img::after {
+      background: linear-gradient(180deg,transparent 60%,rgba(245,243,239,.6) 100%);
+    }
+    body.light .open-q { color: var(--gold); opacity:.12; }
+    body.light .grad {
+      background: linear-gradient(130deg,#C47E1A 0%,#E8A03D 55%,#C47E1A 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    body.light .md-glow {
+      background:
+        radial-gradient(ellipse 55% 80% at 8%  50%, rgba(232,160,61,.10) 0%,transparent 70%),
+        radial-gradient(ellipse 45% 70% at 92% 50%, rgba(61,127,95,.08)  0%,transparent 70%);
+    }
+
+    /* ── Theme Toggle Button ── */
+    .theme-toggle {
+      width:38px; height:38px; border-radius:50%;
+      background: var(--muted); border:1px solid var(--b);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:16px; transition:all .25s var(--ease);
+      flex-shrink:0;
+    }
+    .theme-toggle:hover { border-color:var(--gold-border); background:var(--gold-dim); transform:rotate(20deg); }
+
     /* ═══════════════════════════════════════════
        NAV
     ═══════════════════════════════════════════ */
@@ -536,6 +590,7 @@
       <a href="#team">Team</a>
       <a href="#contact">Contact</a>
     </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" onclick="toggleTheme()">🌙</button>
     <a href="#contact" class="nav-cta">Start a Project</a>
   </div>
 </nav>
@@ -754,7 +809,7 @@
       </div>
 
       <div class="tc ani d2" style="--tc-clr:var(--green)">
-        <div class="tc-img"><img src="IMG_5940.jpeg" alt="Mary Yogi" loading="lazy"/></div>
+        <div class="tc-img"><img src="IMG_2432.jpeg" alt="Mary Yogi" loading="lazy"/></div>
         <div class="tc-body">
           <div class="tc-nm">Mary Yogi</div>
           <div class="tc-rl" style="color:var(--green)">Human Resource Manager</div>
@@ -798,16 +853,27 @@
         <div class="tc-img"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt="Jonathan Mwebaze" loading="lazy"/></div>
         <div class="tc-body">
           <div class="tc-nm">Jonathan Mwebaze</div>
-          <div class="tc-rl" style="color:var(--green)">Full Stack Developer</div>
-          <p class="tc-bio">Architects robust, scalable web and mobile solutions that power Chikwafu's digital products. Jonathan turns complex problems into clean, performant code.</p>
+          <div class="tc-rl" style="color:var(--green)">Software Developer</div>
+          <div class="tc-dl">Coffee Farmer</div>
+          <p class="tc-bio">Architects robust, scalable web and mobile solutions that power Chikwafu's digital products. When not shipping code, Jonathan tends to his coffee farm — grounded in both craft and the soil.</p>
           <div class="tc-lnks"><a href="#" class="tc-lnk" aria-label="LinkedIn">🔗</a><a href="#" class="tc-lnk" aria-label="GitHub">⌨️</a><a href="#" class="tc-lnk" aria-label="Twitter">𝕏</a></div>
+        </div>
+      </div>
+
+      <div class="tc ani" style="--tc-clr:var(--gold)">
+        <div class="tc-img"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80" alt="UG Baby" loading="lazy"/></div>
+        <div class="tc-body">
+          <div class="tc-nm">UG Baby</div>
+          <div class="tc-rl" style="color:var(--gold)">Brand Ambassador</div>
+          <p class="tc-bio">The face and voice that carries the Chikwafu Creatives spirit to the streets of Kampala and beyond. UG Baby connects the brand with culture, community, and the heartbeat of Uganda.</p>
+          <div class="tc-lnks"><a href="#" class="tc-lnk" aria-label="Instagram">📸</a><a href="#" class="tc-lnk" aria-label="Twitter">𝕏</a></div>
         </div>
       </div>
 
     </div><!-- /team-grid -->
 
     <div class="t-stats ani">
-      <div class="ts"><div class="ts-n">7</div><div class="ts-l">Core Team<br>Members</div></div>
+      <div class="ts"><div class="ts-n">8</div><div class="ts-l">Core Team<br>Members</div></div>
       <div class="ts"><div class="ts-n">4</div><div class="ts-l">Disciplines<br>Covered</div></div>
       <div class="ts"><div class="ts-n">2</div><div class="ts-l">Sister Companies<br><span class="ts-s">Tickets2go · Juri Geek</span></div></div>
       <div class="ts"><div class="ts-n">50+</div><div class="ts-l">Projects<br>Shipped</div></div>
@@ -909,6 +975,24 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  function toggleTheme() {
+    const body = document.body;
+    const btn  = document.getElementById('theme-toggle');
+    const isLight = body.classList.toggle('light');
+    btn.textContent = isLight ? '🌑' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  }
+
+  // Restore saved theme on load
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      document.body.classList.add('light');
+      const btn = document.getElementById('theme-toggle');
+      if (btn) btn.textContent = '🌑';
+    }
+  })();
 
   var nav = document.getElementById('nav');
   window.addEventListener('scroll', function() {
